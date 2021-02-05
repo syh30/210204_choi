@@ -7,21 +7,23 @@ devops : 데브옵스는 소프트웨어의 개발과 운영의 합성어로서,
 # 제목: CI/CD 도구 및 방법론 / CI/CD 도구 및 방법론 도입기
 
 안녕하세요! 메쉬코리아 플랫폼실 (Devops 엔지니어) 최제필입니다.      
-이번 글에서는 Kubernetes(이하 `k8s`)에 배포되어 운영하는 여러 MSA를 위해 도입한 CI/CD 도구 및 방법론에 대해 공유하고자 합니다. 
-ci란?       
-cd란?        
+이번 글에서는 Kubernetes(이하 `k8s`)에 배포되어 운영하는 여러 MSA를 위해 도입한 CI/CD 도구 및 방법론에 대해 공유하고자 합니다.      
+CI (Continuous Integration)란 지속적인 통합으로, 
+       
+CD(Continuous Delivery or Continuous Deploy) 란?      
+본격적으로 들어가기에 앞서, Mesh Korea의 대부분의 MSA는 JAVA 기반의 기술 스택으로 구성되어 있고, CI/CD Pipeline을 위해 Bamboo, Spinnaker를 사용하고 있습니다.
+
+CI/CD 적용을 위해 개발자가 Bamboo Job / Spinnaker application을 설정해야 하는데, 특히 CI <-> CD tool이 연동되어 있지 않아 Bamboo CI에서 빌드 된 Docker image tag를 복사하여 spinnaker에 손으로 입력해야 하는 등 불편한 점이 많았습니다 😥
+
+✔️ `Spinnaker`는 멀티 클러스터 / 클라우드 배포 등 강력한 기능을 지닌 CD Workflow platform입니다. 하지만 Mesh Korea의 Kubernetes 숙련도 및 단일 Cloud 환경 사용 등 저희가 원하는 기능보다 훨씬 복잡하고, 많은 기능을 사용하기 힘든 오버 엔지니어링이라고 판단하였습니다.
+
+따라서 새로운 CI/CD 도구 도입이 필요하다고 생각하였고
 CI/CD, Docker 등 기술적 정의보단 **자동화를 위한 방법론**에 초점을 맞춘 글로        
 - 구축된 CI/CD Pipeline을 사용해보신 분
 - 배포 자동화를 위해 여러 도구를 설치하고 운영해보신 분       
 
 을 대상으로 작성하였으니 참고 부탁드립니다 🙂      
 
-
-본격적으로 들어가기에 앞서, Mesh Korea의 대부분의 MSA는 JAVA 기반의 기술 스택으로 구성되어 있고, CI/CD Pipeline을 위해 Bamboo, Spinnaker를 사용하고 있습니다.
-
-CI/CD 적용을 위해 개발자가 Bamboo Job / Spinnaker application을 설정해야 하는데, 특히 CI <-> CD tool이 연동되어 있지 않아 Bamboo CI에서 빌드 된 Docker image tag를 복사하여 spinnaker에 손으로 입력해야 하는 등 불편한 점이 많았습니다 😥
-
-✔️ `Spinnaker`는 멀티 클러스터 / 클라우드 배포 등 강력한 기능을 지닌 CD Workflow platform입니다. 하지만 Mesh Korea의 Kubernetes 숙련도 및 단일 Cloud 환경 사용 등 저희가 원하는 기능보다 훨씬 복잡하고, 많은 기능을 사용하기 힘든 오버 엔지니어링이라고 판단하였습니다.
 
 
 
